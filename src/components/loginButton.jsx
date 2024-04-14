@@ -15,7 +15,7 @@ const StyledButton = styled.button`
    
 `;
 
-export default function LoginButton({ children }) {
-    return <StyledButton>{children}</StyledButton>;
+export default function LoginButton({ children , onClick}) {
+    return <StyledButton onClick={onClick}>{children}</StyledButton>;
 }
 

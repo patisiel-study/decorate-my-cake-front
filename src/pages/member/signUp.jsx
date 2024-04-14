@@ -8,7 +8,10 @@ import {
 } from "../../styles/titleLocation";
 import LoginButton from "../../components/loginButton";
 import { InputStyle } from "../../styles/inputStyle";
-
+import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import ko from "date-fns/locale/ko";
 
 const ContentContainer = styled.div`
   background-color: white;
@@ -25,13 +28,40 @@ const ContentTitle = styled.div`
   margin-top: 0.2rem;
 `;
 
+
+const DatePickerContainer = styled.div`
+  position: relative;
+  display: inline-block;
+  width:12rem;
+`;
+
+
+
+const StyledDatePicker = styled(DatePicker)`
+  width: 16rem;
+  border-radius: 0.25rem;
+  outline: none;
+  border: 1px solid #3d3d3d;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  
+  
+`;
+
 export default function SignUp() {
   const [newId, setNewId] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newConfirmPassword, setNewConfirmPassword] = useState("");
   const [newNickName, setNewNickName] = useState("");
-  const [newBirthday, setNewBirthday] = useState("");
-  
+  const [newBirthday, setNewBirthday] = useState(new Date());
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate("/login"); 
+  };
+
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     
@@ -59,16 +89,14 @@ export default function SignUp() {
       setNewPassword("");
       setNewConfirmPassword("");
       setNewNickName("");
-      setNewBirthday("");
-      window.location.href = "/login";
+      setNewBirthday(new Date());
+      navigate("/login")
      
     } catch (error) {
       alert(error.response.data.message);
+      console.log(error.response.data);
     }
   };
-
-
-
 
   return (
     <StyledPageContainer>
@@ -107,15 +135,24 @@ export default function SignUp() {
           />
 
           <ContentTitle>생년월일</ContentTitle>
-          <InputStyle
-            type="text"
-            value={newBirthday}
-            onChange={(e) => setNewBirthday(e.target.value)}
-          />
+          <DatePickerContainer>
+            <StyledDatePicker 
+              selected={newBirthday}
+              onChange={(date) => setNewBirthday(date)}
+              dateFormat="yyyy-MM-dd"
+              locale={ko}
+              maxDate={new Date()} 
+              peekNextMonth
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+            />
+          </DatePickerContainer>
+          
 
           <LoginButton type="submit">회원가입</LoginButton>
         </form>
-        <LoginButton onClick={() => window.location.href = "/login"}>취소</LoginButton>
+        <LoginButton onClick={handleButtonClick}>취소</LoginButton>
       </ContentContainer>
     </StyledPageContainer>
   );
