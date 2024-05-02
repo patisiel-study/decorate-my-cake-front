@@ -5,7 +5,7 @@ const StyledTitle = styled.div`
   font-size:2rem;
   font-weight:bolder;
   color: #3d3d3d;
-  margin-top: 7rem;
+ 
 
   text-shadow: calc(3px * 1) 0 0 white,
     calc(3px * 0.9239) calc(3px * 0.3827) 0 white,

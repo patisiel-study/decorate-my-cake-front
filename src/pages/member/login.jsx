@@ -11,6 +11,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
+
+const TitleSpace = styled.div`
+  margin:5rem
+`;
+  
+
+
 const ContentContainer = styled.div`
   background-color: white;
   color: #3d3d3d;
@@ -108,11 +115,20 @@ export default function Login() {
       });
 
       console.log(response.data);
-      const { accessToken, refreshToken } = response.data.data;
+      const { accessToken, refreshToken } = response.data.data; 
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
-      window.location.replace("http://localhost:3000/main");
+      const axiosConfig = {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      };
+
+      const testResponse = await axios.post("http://3.37.89.60:8080/member/test", {}, axiosConfig);
+      console.log(testResponse.data);
+
+      
       alert(response.data.message);
 
       setUserId("");
@@ -125,6 +141,7 @@ export default function Login() {
 
   return (
     <StyledPageContainer>
+      <TitleSpace/>
       <TitleBorder>
         내 <StyledCakeTitle>케이크</StyledCakeTitle>를 꾸며줘!
       </TitleBorder>
