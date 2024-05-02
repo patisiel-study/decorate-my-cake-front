@@ -7,7 +7,7 @@ import {
   StyledCakeTitle,
 } from "../../styles/titleLocation";
 import LoginButton from "../../components/loginButton";
-import { InputStyle } from "../../styles/inputStyle";
+import { InputStyle } from "../../components/inputStyle";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -72,7 +72,7 @@ export default function SignUp() {
 
     try {
       const response = await axios.post(
-        "http://13.125.255.0:8080/member/signup",
+        "http://3.37.89.60:8080/member/signup",
         {
           email: newId,
           password: newPassword,
