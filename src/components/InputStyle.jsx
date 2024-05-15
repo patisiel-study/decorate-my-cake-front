@@ -22,7 +22,7 @@ const Input = styled.input`
   }
 `;
 
-const InputStyle = ({ imagePath, ...props }) => {
+export default function StyledInput ({ imagePath, ...props }) {
   return (
     <InputContainer>
       <Input {...props} imagepath={imagePath} />
@@ -30,4 +30,3 @@ const InputStyle = ({ imagePath, ...props }) => {
   );
 };
 
-export { InputStyle };
