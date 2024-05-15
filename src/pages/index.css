@@ -1,0 +1,130 @@
+body {
+  background-color: #fef1f1;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "SejonghospitalBold";
+}
+@font-face {
+  font-family: "SejonghospitalBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SejonghospitalBold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+.react-datepicker__month-container {
+  background-color: #ffffff;
+  font-family: "SejonghospitalBold";
+  color: #3d3d3d;
+}
+
+.react-datepicker__header {
+  background-color: #ffdfdf !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "SejonghospitalBold";
+  color: #3d3d3d;
+}
+
+/* 최상단에 뜨는 연도와 월 */
+.react-datepicker__current-month {
+  background-color: #fef1f1;
+  border-radius: 5rem;
+  width: 40%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  color: #3d3d3d;
+}
+
+/* 요일들 */
+.react-datepicker__day-name {
+  background-color: #fef1f1;
+  border-radius: 3rem;
+  color: #3d3d3d;
+}
+
+/* 날짜들을 담는 레이아웃 */
+.react-datepicker__month {
+  background-color: #ffffff;
+  color: #3d3d3d;
+}
+
+/* day: 주말 날짜 */
+.react-datepicker__day:nth-child(1) {
+  color: hsl(0, 96%, 80%); /* 일요일 날짜*/
+}
+.react-datepicker__day:nth-child(7) {
+  color: #aec4fc; /* 토요일 날짜 */
+}
+
+/* day-name: 요일 */
+.react-datepicker__day-name:nth-child(1) {
+  color: hsl(0, 96%, 80%); /* 일요일 */
+}
+.react-datepicker__day-name:nth-child(7) {
+  color: #aec4fc; /* 토요일 */
+}
+
+/* 일반 날짜 */
+.react-datepicker__day {
+  color: #3d3d3d;
+}
+
+/* 선택된 날짜 */
+.react-datepicker__day--selected {
+  background-color: #ffdfdf !important ;
+}
+
+/* highlighted된 날짜 */
+.react-datepicker__day--highlighted {
+  background-color: #fef1f1;
+}
+
+/* 날짜에 마우스를 올릴 때 */
+.react-datepicker__day:hover {
+  background-color: #ffdfdf !important;
+}
+.react-datepicker__month-select {
+  box-sizing: border-box;
+  width: 2.6rem;
+  font-size: small;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  margin-top: 0.2rem;
+  margin-bottom: 1.3rem;
+  font-family: "SejonghospitalBold";
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  border: 0;
+}
+.react-datepicker__year-select {
+  box-sizing: border-box;
+  font-size: small;
+  width: 3rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-family: "SejonghospitalBold";
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  border-radius: 1rem;
+  border: 0;
+}
+
+.react-datepicker__year-select:focus {
+  outline-color: #ffdfdf;
+}
+
+.react-datepicker__month-select:focus-within {
+  outline-color: #ffdfdf;
+}
