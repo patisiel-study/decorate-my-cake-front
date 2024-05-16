@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import { signUpAPI } from "../../apis/SignUpApi";
-import styled from "styled-components";
-import { BorderedText, SpanText } from "../../styles/TextStyle"
-import { StyledPageContainer } from "../../styles/TitleLocation";
-import PinkButton from "../../components/PinkButton";
-import StyledInput from "../../components/InputStyle";
-import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import ko from "date-fns/locale/ko";
+import React, { useState } from 'react';
+import { signUpAPI } from '../../apis/SignUpApi';
+import styled from 'styled-components';
+import { BorderedText, SpanText } from '../../styles/TextStyle';
+import { StyledPageContainer } from '../../styles/TitleLocation';
+import PinkButton from '../../components/PinkButton';
+import StyledInput from '../../components/InputStyle';
+import { useNavigate } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import ko from 'date-fns/locale/ko';
 
 export default function SignUp() {
-  const [newId, setNewId] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [newConfirmPassword, setNewConfirmPassword] = useState("");
-  const [newNickName, setNewNickName] = useState("");
+  const [newId, setNewId] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newConfirmPassword, setNewConfirmPassword] = useState('');
+  const [newNickName, setNewNickName] = useState('');
   const [newBirthday, setNewBirthday] = useState(new Date());
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate("/login");
+    navigate('/login');
   };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     if (newPassword !== newConfirmPassword) {
-      return alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+      return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
     }
 
     try {
@@ -35,11 +35,11 @@ export default function SignUp() {
         password: newPassword,
         nickname: newNickName,
         birthday: newBirthday,
-        profileImg: null,
+        profileImg: 'string',
       });
 
-      alert("회원가입이 완료되었습니다.");
-      navigate("/login");
+      alert('회원가입이 완료되었습니다.');
+      navigate('/login');
     } catch (error) {
       alert(error.message);
       console.error(error);
