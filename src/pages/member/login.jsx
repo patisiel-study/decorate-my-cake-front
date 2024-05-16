@@ -155,7 +155,9 @@ export default function Login() {
             아이디 유지
           </CheckContainer>
           <div>
-            <LoginButton type="submit">로그인</LoginButton>
+            <Link to="/MyCakeMain">
+              <LoginButton type="submit">로그인</LoginButton>
+            </Link>
           </div>
         </form>
 
