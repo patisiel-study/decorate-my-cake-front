@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import styled from "styled-components";
-import { loginAPI, testAPI } from "../apis/LoginApi";
+import { LoginAPI, TestAPI } from "../apis/LoginApi";
 import PinkButton from "./PinkButton";
 import StyledInput from "../components/InputStyle";
 
@@ -40,12 +40,12 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      const response = await loginAPI(userId, userPassword);
+      const response = await LoginAPI(userId, userPassword);
       const { accessToken, refreshToken } = response.data;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
 
-      const testResponse = await testAPI(accessToken);
+      const testResponse = await TestAPI(accessToken);
       console.log(testResponse);
 
       alert(response.message);
