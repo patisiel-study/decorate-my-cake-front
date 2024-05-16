@@ -2,7 +2,7 @@
 import axios from "axios";
 import { SERVER_URL } from "../config/ApiConfig"
 
-export const loginAPI = async (email, password ) => {
+export const LoginAPI = async (email, password ) => {
   try {
     const response = await axios.post(`${SERVER_URL}/member/login`, {
       email: email,
@@ -14,7 +14,7 @@ export const loginAPI = async (email, password ) => {
   }
 };
 
-export const testAPI = async (accessToken) => {
+export const TestAPI = async (accessToken) => {
   try {
     const axiosConfig = {
       headers: {
