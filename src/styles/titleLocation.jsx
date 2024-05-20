@@ -6,19 +6,12 @@ const PageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-
-
-const CakeTitle = styled.span`
-  color: #ff3b3b;
+  height: 100vh;
 `;
 
 const StyledPageContainer = ({ children }) => {
   return <PageContainer>{children}</PageContainer>;
 };
 
-const StyledCakeTitle = ({ children }) => {
-  return <CakeTitle>{children}</CakeTitle>;
-};
 
-export { StyledPageContainer, StyledCakeTitle };
+export { StyledPageContainer};

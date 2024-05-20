@@ -10,7 +10,7 @@ const StyledButton = styled.button`
     margin-top:1rem;
     font-family: 'SejonghospitalBold', sans-serif;
     &:hover {
-        background-color: #FFC3C3; 
+    background-color: #FACCCC;
     }
    
 `;
