@@ -1,8 +1,9 @@
 
 import axios from "axios";
-import { SERVER_URL } from "../config/ApiConfig"
+
 
 export const signUpAPI = async (newUserData) => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   try {
     const response = await axios.post(
       `${SERVER_URL}/member/signup`,

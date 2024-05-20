@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { SERVER_URL } from '../config/ApiConfig';
 
 export const LoginAPI = async (email, password) => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   try {
     const response = await axios.post(`${SERVER_URL}/member/login`, {
       email: email,
@@ -14,6 +14,7 @@ export const LoginAPI = async (email, password) => {
 };
 
 export const TestAPI = async (accessToken) => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   try {
     const axiosConfig = {
       headers: {
