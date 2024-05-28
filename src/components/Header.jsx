@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledBorderedText, StyledSpanText } from "../styles/TextStyle";
+import {
+  StyledBorderedText,
+  StyledText,
+  StyledSpanText,
+} from "../styles/TextStyle";
 
 const Header = ({ profileImg }) => {
   return (
@@ -24,7 +28,36 @@ const Header = ({ profileImg }) => {
               </FriendContents>
             </FriendTapsContainer>
           </InnerContainer>
-          <Profile src={profileImg || "/img/profile.png"} alt="설정" />
+          <InnerContainer className="settingContainer">
+            <Profile
+              className="profile"
+              src={profileImg || "/img/profile.png"}
+              alt="설정"
+            />
+            <SettingContainer>
+              <SettingInnerContainer>
+                <Profile
+                  className="profile"
+                  src={profileImg || "/img/profile.png"}
+                  alt="설정"
+                />
+                <StyledText>
+                  <StyledSpanText>꿈빛파티시엘</StyledSpanText>님
+                </StyledText>
+              </SettingInnerContainer>
+              <SettingInnerContainer>
+                <Icon className="cakeHistory" src="/img/cakeBox.png" alt="내 케이크 보관함" />
+                <StyledText>내 케이크 보관함</StyledText>
+              </SettingInnerContainer>
+              <SettingInnerContainer>
+                <Icon className="candleHistory" src="/img/candleBlack.png" alt="보낸 편지 보관함" />
+                <StyledText>보낸 편지 보관함</StyledText>
+              </SettingInnerContainer>
+              <SettingInnerContainer>
+                <StyledText>로그아웃 | 회원탈퇴</StyledText>
+              </SettingInnerContainer>
+            </SettingContainer>
+          </InnerContainer>
         </MenuContainer>
       </Container>
     </div>
@@ -52,10 +85,10 @@ const MenuContainer = styled.div`
 `;
 
 const FriendTapsContainer = styled.div`
-  display: flex;
+  display: none;
   flex-direction: column;
   position: absolute;
-  top: 0;
+  top: 1.5rem;
   right: -0.5rem;
 `;
 
@@ -69,7 +102,6 @@ const Icon = styled.img`
   }
 
   &.friend:hover {
-    background-color: yellow;
     & ~ ${FriendTapsContainer} {
       display: flex;
     }
@@ -86,6 +118,18 @@ const InnerContainer = styled.div`
   position: relative;
 `;
 
+const SettingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 4rem;
+  right: -0.5rem;
+  width: 15rem;
+  height: 10rem;
+  background-color: white;
+  border-radius: 1rem;
+`;
+
 const Profile = styled.img`
   width: 1.8rem;
   height: 1.8rem;
@@ -94,7 +138,9 @@ const Profile = styled.img`
   border-radius: 50%;
 
   &:hover {
-    cursor: pointer;
+    & ~ ${SettingContainer} {
+      display: flex;
+    }
   }
 `;
 
@@ -110,5 +156,11 @@ const FriendTap = styled.button`
   height: 2.5rem;
   background-color: white;
   border-radius: 1rem;
-  border: 2px solid black;
+  border: none;
+`;
+
+const SettingInnerContainer = styled.div`
+  display: flex;
+  arign-items: center;
+  text-align: center;
 `;
