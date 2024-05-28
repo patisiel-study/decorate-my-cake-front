@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LoginButton from "../../components/loginButton";
 import TitleBorder from "../../components/titleBorder";
-import { StyledPageContainer, StyledCakeTitle } from "../../styles/titleLocation";
-import { InputStyle } from "../../styles/inputStyle";
+import {
+  StyledPageContainer,
+  StyledCakeTitle,
+} from "../../styles/titleLocation";
+import { InputStyle } from "../../components/inputStyle";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const ContentContainer = styled.div`
   background-color: white;
@@ -13,16 +18,15 @@ const ContentContainer = styled.div`
   height: 30rem;
   padding: 5rem;
   border-radius: 2rem;
-  display: flex; 
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LoginImg = styled.img`
   width: 10rem;
   margin-bottom: 2rem;
-  
 `;
 const CheckContainer = styled.label`
   font-size: x-small;
@@ -66,6 +70,58 @@ const LoginOption = styled.div`
 export default function Login() {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [cookies, setCookies, removeCookies] = useCookies(["rememberUserId"]);
+  const [isRemember, setIsRemember] = useState(false);
+
+  useEffect(() => {
+    if (cookies.rememberUserId !== undefined) {
+      setUserId(cookies.rememberUserId);
+      setIsRemember(true);
+    }
+  }, []);
+
+  const onRememberHandler = (e) => {
+    const checked = e.target.checked;
+    setIsRemember(checked);
+    if (checked) {
+      setCookies("rememberUserId", userId, { path: "/" });
+    } else {
+      removeCookies("rememberUserId");
+    }
+  };
+
+  const onUserIdChange = (e) => {
+    const value = e.target.value;
+    setUserId(value);
+    if (isRemember) {
+      setCookies("rememberUserId", value, { path: "/" });
+    }
+  };
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://3.37.89.60:8080/member/login", {
+        email: userId,
+        password: userPassword,
+      });
+
+      console.log(response.data);
+      const { accessToken, refreshToken } = response.data.data;
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      window.location.replace("http://localhost:3000/main");
+      alert(response.data.message);
+
+      setUserId("");
+      setUserPassword("");
+    } catch (error) {
+      alert(error.response.data.message);
+      console.log(error.response.data);
+    }
+  };
 
   return (
     <StyledPageContainer>
@@ -74,40 +130,49 @@ export default function Login() {
       </TitleBorder>
       <ContentContainer>
         <LoginImg src="img/loginCakeImg.png"></LoginImg>
-        <form>
-         
-            <InputStyle
-              type="text"
-              placeholder="아이디"
-              imagePath="/img/user.png"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-            <InputStyle
-              type="password"
-              placeholder="비밀번호"
-              imagePath="/img/password.png"
-              value={userPassword}
-              onChange={(e) => setUserPassword(e.target.value)}
-            />
-         
+        <form action="/login" method="post" onSubmit={onSubmitHandler}>
+          <InputStyle
+            type="text"
+            placeholder="아이디"
+            imagePath="/img/user.png"
+            value={userId}
+            onChange={onUserIdChange}
+          />
+          <InputStyle
+            type="password"
+            placeholder="비밀번호"
+            imagePath="/img/password.png"
+            value={userPassword}
+            onChange={(e) => setUserPassword(e.target.value)}
+          />
+
           <CheckContainer>
-            <LoginCheck type="checkbox" />
-            로그인 상태 유지
+            <LoginCheck
+              type="checkbox"
+              onChange={(e) => onRememberHandler(e)}
+              checked={isRemember}
+            />
+            아이디 유지
           </CheckContainer>
           <div>
-            <LoginButton type="submit">로그인</LoginButton>
+            <Link to="/MyCakeMain">
+              <LoginButton type="submit">로그인</LoginButton>
+            </Link>
           </div>
         </form>
 
         <LoginOption>
           <ul>
             <li>
-              <Link to="" href="#">비밀번호 찾기</Link>
+              <Link to="" href="#">
+                비밀번호 찾기
+              </Link>
             </li>
             <li>|</li>
             <li>
-              <Link to="" href="#">아이디 찾기</Link>
+              <Link to="" href="#">
+                아이디 찾기
+              </Link>
             </li>
             <li>|</li>
             <li>
