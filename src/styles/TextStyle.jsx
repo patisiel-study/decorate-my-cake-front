@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledBorderedText = styled.div
+const BorderedText = styled.div
 `
   font-size: ${({ fontSize }) => fontSize || "2rem"};
   font-weight: bolder;
@@ -22,18 +22,18 @@ const StyledBorderedText = styled.div
 
 `;
 
-const StyledSpanText = styled.span`
+const SpanText = styled.span`
   color: #ff3b3b;
 `;
 
-const BorderedText = ({ children, fontSize }) => {
+const StyledBorderedText = ({ children, fontSize }) => {
   return (
-    <StyledBorderedText fontSize={fontSize}>{children}</StyledBorderedText>
+    <BorderedText fontSize={fontSize}>{children}</BorderedText>
   );
 };
 
-const SpanText = ({ children }) => {
-  return <StyledSpanText>{children}</StyledSpanText>;
+const StyledSpanText = ({ children }) => {
+  return <SpanText>{children}</SpanText>;
 };
 
-export { BorderedText, SpanText };
+export { StyledBorderedText, StyledSpanText };

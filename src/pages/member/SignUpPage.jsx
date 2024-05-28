@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signUpAPI } from '../../apis/SignUpApi';
 import styled from 'styled-components';
-import { BorderedText, SpanText } from '../../styles/TextStyle';
+import {  StyledBorderedText, StyledSpanText  } from '../../styles/TextStyle';
 import { StyledPageContainer } from '../../styles/TitleLocation';
 import PinkButton from '../../components/PinkButton';
 import StyledInput from '../../components/InputStyle';
@@ -48,9 +48,9 @@ export default function SignUp() {
 
   return (
     <StyledPageContainer>
-      <BorderedText>
-        내 <SpanText>케이크</SpanText>를 꾸며줘!
-      </BorderedText>
+      <StyledBorderedText>
+        내 <StyledSpanText>케이크</StyledSpanText>를 꾸며줘!
+      </StyledBorderedText>
       <ContentContainer>
         <form action="/signup" method="post" onSubmit={onSubmitHandler}>
           <ContentTitle>아이디</ContentTitle>
