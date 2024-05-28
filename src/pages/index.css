@@ -91,9 +91,9 @@ body {
 }
 .react-datepicker__month-select {
   box-sizing: border-box;
-  width: 3rem;
-  padding: 0.2rem;
-  font-size: 0.1rem;
+  width: 2.6rem;
+  font-size: small;
+  padding: 0.5rem;
   border-radius: 1rem;
   margin-top: 0.2rem;
   margin-bottom: 1.3rem;
@@ -107,9 +107,9 @@ body {
 }
 .react-datepicker__year-select {
   box-sizing: border-box;
+  font-size: small;
   width: 3rem;
-  padding: 0.2rem;
-  font-size: 0.1rem;
+  padding: 0.5rem;
   border-radius: 6px;
   font-family: "SejonghospitalBold";
   -moz-appearance: none;
