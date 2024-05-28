@@ -1,5 +1,5 @@
 import React from "react";
-import StyledBackgroundIvory from "../../styles/background";
+import StyledBackgroundIvory from "../../styles/BackgroundStyle";
 import Header from "../../components/Header";
 import { StyledBorderedText, StyledSpanText } from "../../styles/TextStyle";
 

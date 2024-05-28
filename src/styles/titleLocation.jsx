@@ -13,5 +13,4 @@ const StyledPageContainer = ({ children }) => {
   return <PageContainer>{children}</PageContainer>;
 };
 
-
-export { StyledPageContainer};
+export { StyledPageContainer };
