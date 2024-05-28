@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   StyledBorderedText,
@@ -7,6 +7,19 @@ import {
 } from "../styles/TextStyle";
 
 const Header = ({ profileImg }) => {
+  const [isFriendActive, setIsFriendActive] = useState(false);
+  const [isSettingActive, setIsSettingActive] = useState(false);
+
+  const toggleFriendActive = () => {
+    setIsFriendActive(!isFriendActive);
+    setIsSettingActive(false);
+  };
+
+  const toggleSettingActive = () => {
+    setIsSettingActive(!isSettingActive);
+    setIsFriendActive(false);
+  };
+
   return (
     <div>
       <Container>
@@ -14,49 +27,78 @@ const Header = ({ profileImg }) => {
           내 <StyledSpanText>케이크</StyledSpanText>를 꾸며줘!
         </StyledBorderedText>
         <MenuContainer>
-          <Icon className="home" src="/img/home.png" alt="홈" />
+          <Icon className="homeIcon" src="/img/home.png" alt="홈" />
           <InnerContainer className="friendContainer">
-            <Icon className="friend" src="/img/friendWhite.png" alt="친구" />
-            <FriendTapsContainer>
-              <FriendTaps className="friendTaps">
-                <FriendTap className="friendList">친구목록</FriendTap>
-                <FriendTap className="friendBirthday">친구생일</FriendTap>
-                <FriendTap className="friendRequest">친구요청</FriendTap>
-              </FriendTaps>
-              <FriendContents>
-                <div>친구목록입니다.</div>
-              </FriendContents>
-            </FriendTapsContainer>
+            <Icon
+              className="friend"
+              src="/img/friendWhite.png"
+              alt="친구"
+              onClick={toggleFriendActive}
+            />
+            {isFriendActive && (
+              <FriendTapsContainer isVisible={isFriendActive}>
+                <FriendTaps className="friendTaps">
+                  <FriendTap className="friendList">친구목록</FriendTap>
+                  <FriendTap className="friendBirthday">친구생일</FriendTap>
+                  <FriendTap className="friendRequest">친구요청</FriendTap>
+                </FriendTaps>
+                <FriendContents>
+                  <div>친구목록입니다.</div>
+                </FriendContents>
+              </FriendTapsContainer>
+            )}
           </InnerContainer>
           <InnerContainer className="settingContainer">
             <Profile
               className="profile"
               src={profileImg || "/img/profile.png"}
               alt="설정"
+              onClick={toggleSettingActive}
             />
-            <SettingContainer>
-              <SettingInnerContainer>
-                <Profile
-                  className="profile"
-                  src={profileImg || "/img/profile.png"}
-                  alt="설정"
-                />
-                <StyledText>
-                  <StyledSpanText>꿈빛파티시엘</StyledSpanText>님
-                </StyledText>
-              </SettingInnerContainer>
-              <SettingInnerContainer>
-                <Icon className="cakeHistory" src="/img/cakeBox.png" alt="내 케이크 보관함" />
-                <StyledText>내 케이크 보관함</StyledText>
-              </SettingInnerContainer>
-              <SettingInnerContainer>
-                <Icon className="candleHistory" src="/img/candleBlack.png" alt="보낸 편지 보관함" />
-                <StyledText>보낸 편지 보관함</StyledText>
-              </SettingInnerContainer>
-              <SettingInnerContainer>
-                <StyledText>로그아웃 | 회원탈퇴</StyledText>
-              </SettingInnerContainer>
-            </SettingContainer>
+            {isSettingActive && (
+              <SettingContainer isVisible={isSettingActive}>
+                <SettingInnerContainer>
+                  <SettingInnerContainer>
+                    <Profile
+                      className="profileIcon"
+                      src={profileImg || "/img/profile.png"}
+                      alt="설정"
+                    />
+                    <StyledText>
+                      <StyledSpanText>꿈빛파티시엘</StyledSpanText>님
+                    </StyledText>
+                  </SettingInnerContainer>
+                  <SettingInnerContainer className="edit">
+                    <Icon className="editIcon" src="/img/edit.png" alt="편집" />
+                    <StyledText>편집</StyledText>
+                  </SettingInnerContainer>
+                </SettingInnerContainer>
+                <SettingInnerContainer className="cakeHistory">
+                  <Icon
+                    className="cakeHistoryIcon"
+                    src="/img/cakeBox.png"
+                    alt="내 케이크 보관함"
+                  />
+                  <StyledText className="cakeHistoryText">
+                    내 케이크 보관함
+                  </StyledText>
+                </SettingInnerContainer>
+                <SettingInnerContainer className="candleHistory">
+                  <Icon
+                    className="candleHistoryIcon"
+                    src="/img/candleBlack.png"
+                    alt="보낸 편지 보관함"
+                  />
+                  <StyledText className="candleHistoryText">
+                    보낸 편지 보관함
+                  </StyledText>
+                </SettingInnerContainer>
+                <SettingInnerContainer className="logoutAndResign">
+                  <StyledText>로그아웃</StyledText>
+                  <StyledText>회원탈퇴</StyledText>
+                </SettingInnerContainer>
+              </SettingContainer>
+            )}
           </InnerContainer>
         </MenuContainer>
       </Container>
@@ -85,7 +127,7 @@ const MenuContainer = styled.div`
 `;
 
 const FriendTapsContainer = styled.div`
-  display: none;
+  display: ${(props) => (props.isVisible ? "flex" : "none")};
   flex-direction: column;
   position: absolute;
   top: 1.5rem;
@@ -119,7 +161,7 @@ const InnerContainer = styled.div`
 `;
 
 const SettingContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.isVisible ? "flex" : "none")};
   flex-direction: column;
   position: absolute;
   top: 4rem;
@@ -137,7 +179,8 @@ const Profile = styled.img`
   border: 2px solid white;
   border-radius: 50%;
 
-  &:hover {
+  &.profile:hover {
+    cursor: pointer;
     & ~ ${SettingContainer} {
       display: flex;
     }
@@ -161,6 +204,14 @@ const FriendTap = styled.button`
 
 const SettingInnerContainer = styled.div`
   display: flex;
-  arign-items: center;
+  align-items: center;
   text-align: center;
+  height: 3rem;
+
+  &.edit:hover,
+  &.cakeHistory:hover,
+  &.candleHistory:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
