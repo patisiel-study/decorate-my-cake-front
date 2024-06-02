@@ -47,6 +47,7 @@ export default function LoginForm() {
       const response = await LoginAPI(userId, userPassword);
       const { accessToken, refreshToken, grantType } = response.data;
 
+      console.log(accessToken);
       console.log(grantType);
 
       localStorage.setItem("accessToken", accessToken);

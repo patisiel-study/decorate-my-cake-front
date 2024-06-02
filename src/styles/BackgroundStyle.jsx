@@ -12,6 +12,20 @@ const BackgroundIvory = styled.div`
   background-size: 15%;
 `;
 
+const Table = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 15rem;
+  background-image: url("../../../img/table.png");
+  background-repeat: repeat-x;
+  background-size: 100% 100%;
+`;
+
 export default function StyledBackgroundIvory() {
-  return <BackgroundIvory />;
+  return (
+    <BackgroundIvory>
+      <Table />
+    </BackgroundIvory>
+  );
 }
