@@ -1,15 +1,15 @@
-import styled from 'styled-components';
-import { BorderedText, SpanText } from '../../styles/TextStyle';
-import { StyledPageContainer } from '../../styles/TitleLocation';
-import { Link } from 'react-router-dom';
-import LoginForm from '../../components/LoginForm';
+import styled from "styled-components";
+import { StyledBorderedText, StyledSpanText } from "../../styles/TextStyle";
+import { StyledPageContainer } from "../../styles/TitleLocation";
+import { Link } from "react-router-dom";
+import LoginForm from "../../components/LoginForm";
 
 export default function LoginPage() {
   return (
     <StyledPageContainer>
-      <BorderedText>
-        내 <SpanText>케이크</SpanText>를 꾸며줘!
-      </BorderedText>
+      <StyledBorderedText>
+        내 <StyledSpanText>케이크</StyledSpanText>를 꾸며줘!
+      </StyledBorderedText>
       <ContentContainer>
         <LoginImg src="img/loginCakeImg.png"></LoginImg>
         <LoginForm />
