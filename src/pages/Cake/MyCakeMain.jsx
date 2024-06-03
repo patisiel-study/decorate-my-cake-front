@@ -10,24 +10,35 @@ export default function MyCakeMain() {
   const [nickname, setNickname] = useState("");
   const [message, setMessage] = useState("");
   const [candleCount, setCandleCount] = useState("");
+  const [cakeName, setCakeName] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await CakeAPI();
         console.log(response);
-        // const { nickname, candleCount, message } = response.data;
+        alert(response.data.message);
+        const {
+          birthday,
+          cakeCreatedYear,
+          cakeName,
+          candleCount,
+          candleCountPermission,
+          candleCreatePermission,
+          candleList,
+          candleViewPermission,
+          message,
+          nickname,
+        } = response.data.data;
 
-        setMessage(message || "");
-        setNickname(nickname || "");
-        setCandleCount(candleCount || "");
-
-        console.log(message, nickname, candleCount);
+        setMessage(message);
+        setNickname(nickname);
+        setCandleCount(candleCount.toString());
+        setCakeName(cakeName);
       } catch (error) {
         console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -35,7 +46,13 @@ export default function MyCakeMain() {
     <div>
       <StyledBackgroundIvory />
       <Plate src="../../../img/plate.png" />
-      <Cake src="../../../img/cake1.png" />
+      <Cake
+        src="../../../img/cake1.png"
+        style={{ display: cakeName ? "flex" : "none" }}
+      />
+      <CakeMessage style={{ display: cakeName ? "none" : "flex" }}>
+        <StyledBorderedText fontSize="1.5rem">{message}</StyledBorderedText>
+      </CakeMessage>
       <RedButtonContainer>
         <RedButton>
           <Icon src="../../../img/share.png" />
@@ -47,12 +64,16 @@ export default function MyCakeMain() {
         </RedButton>
       </RedButtonContainer>
       <Header />
-      <StyledBorderedText>
-        <StyledSpanText>꿈빛 파티시엘</StyledSpanText>님의 케이크
-      </StyledBorderedText>
-      <p>닉네임: {nickname}</p>
-      <p>메시지: {message}</p>
-      <p>촛불 개수: {candleCount}</p>
+      <LeftContainer>
+        <StyledBorderedText fontSize="1.5rem">
+          <StyledSpanText>{nickname}</StyledSpanText>님의 케이크
+        </StyledBorderedText>
+        <StyledBorderedText fontSize="1.2rem">
+          📩
+          <StyledSpanText>{candleCount}</StyledSpanText>개의 메시지가
+          도착했어요!
+        </StyledBorderedText>
+      </LeftContainer>
     </div>
   );
 }
@@ -92,11 +113,28 @@ const PageButton = styled.button`
   width: 5rem;
   height: 5rem;
   background-color: white;
-  color: #3D3D3D;
+  color: #3d3d3d;
   border: none;
   border-radius: 50%;
   font-family: "SejonghospitalBold", sans-serif;
   &:hover {
     background-color: #facccc;
+  }
+`;
+
+const CakeMessage = styled.div`
+  position: absolute;
+  bottom: 25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  word-break: keep-all;
+  text-align: center;
+`;
+
+const LeftContainer = styled.div`
+  margin-left: 1rem;
+  & > * {
+    margin-top: 1rem; // 모든 자식 컴포넌트에 10px 마진 적용
   }
 `;
