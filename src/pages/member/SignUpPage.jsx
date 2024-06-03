@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signUpAPI } from '../../apis/SignUpApi';
 import styled from 'styled-components';
-import {  StyledBorderedText, StyledSpanText  } from '../../styles/TextStyle';
+import { StyledBorderedText, StyledSpanText } from '../../styles/TextStyle';
 import { StyledPageContainer } from '../../styles/TitleLocation';
 import PinkButton from '../../components/PinkButton';
 import StyledInput from '../../components/InputStyle';

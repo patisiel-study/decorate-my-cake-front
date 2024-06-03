@@ -19,9 +19,9 @@ function FriendPage() {
       {TabData.map((tab) => (
         <StyledButtonWithImage
             key={tab.id}
-            active={activeTab === tab.id}
+            active={String(activeTab === tab.id)}
             onClick={() => setActiveTab(tab.id)}
-            imageUrl={tab.imageUrl} 
+            imageurl={tab.imageUrl}
         >
         </StyledButtonWithImage>
         ))}
@@ -45,12 +45,14 @@ const FriendPageStyle = styled.div`
 
 const TabBox = styled.div`
   display: flex;
+  background-image: url("../../../../img/wallpaper.jpg");
 `;
 
 
 const TabContent = styled.div`
   padding: 1rem;
-  height:30rem;
+  height:100%;
+  border-bottom-right-radius:1rem;
   border-bottom-left-radius:1rem;
   background-color:white;
 `;
@@ -58,16 +60,17 @@ const TabContent = styled.div`
 const StyledButtonWithImage = styled.button`
   border: none;
   height: 2rem;
-  width: ${({ active }) => (active ? "8rem" : "3rem")}; 
+  width: ${({ active }) => (active === "true" ? "8rem" : "3rem")}; 
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  background-color: ${({ active }) => (active ? "#FFDFDF" : "white")}; 
-  background-image: url(${({ imageUrl }) => imageUrl});
+  background-color: ${({ active }) => (active === "true" ? "#FFDFDF" : "white")}; 
+  background-image: ${({ imageurl }) => `url(${imageurl})`};
   background-size: cover;
   background-position: center;
   background-size: 25px 25px;
   background-repeat: no-repeat;
   cursor: pointer;
 `;
+
 
 export default FriendPage;

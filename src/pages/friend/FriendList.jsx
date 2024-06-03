@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import axios from 'axios';
 
-function FriendList() {
-  const [friends, setFriends] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const FriendList = () => {
+  const [friends, setFriends] = useState([]); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-    const API_TOKEN = process.env.REACT_APP_API_TOKEN;
+    const API_TOKEN = localStorage.getItem('accessToken');
 
-  
+    
     const fetchFriends = async () => {
       try {
         const response = await axios.get(`${SERVER_URL}/friend/list`, {
@@ -18,41 +18,57 @@ function FriendList() {
             'Authorization': `Bearer ${API_TOKEN}`
           }
         });
-        
         if (response && response.data) {
-          setFriends(response.data);
+
+          if (Array.isArray(response.data)) {
+            setFriends(response.data);
+            console.log('서버 메시지:', response.data.message);
+          } else if (typeof response.data === 'object' && response.data !== null) {
+            setFriends([]);
+          } else {
+            throw new Error("예상치 못한 응답 형식입니다");
+          }
         } else {
-          throw new Error("Unexpected response format");
+          throw new Error("예상치 못한 응답 형식입니다");
         }
-        setLoading(false);
+        
       } catch (error) {
-        console.error("Error fetching friends:", error);
+        console.error("친구 목록을 가져오는 중 오류 발생:", error);
         setError(error);
-        setLoading(false);
       }
     };
-
     fetchFriends();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  
+  if (error) {
+    return <div>{error}</div>;
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  
+  if (friends.length === 0) {
+    return <div>친구 목록이 비어있습니다.</div>;
   }
 
   return (
-    <div>
-      <h1>Friend List</h1>
-      <ul>
-        {friends.map(friend => (
-          <li key={friend.id}>{friend.name}</li>
-        ))}
-      </ul>
-    </div>
+    <FriendListContainer>
+      {friends.map((friend) => (
+        <FriendItem key={friend.id}>
+          {friend.name}
+        </FriendItem>
+      ))}
+    </FriendListContainer>
   );
-}
+};
 
 export default FriendList;
+
+const FriendListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const FriendItem = styled.div`
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+`;
