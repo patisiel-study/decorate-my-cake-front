@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const LoginAPI = async (email, password) => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
