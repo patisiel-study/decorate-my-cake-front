@@ -3,6 +3,8 @@ import axios from 'axios';
 export const CakeAPI = async () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const API_TOKEN = localStorage.getItem('accessToken');
+  const currentTime = new Date();
+  const currentYear = currentTime.getFullYear();
 
   if (!SERVER_URL) {
     throw new Error('SERVER_URL is not defined');
@@ -15,12 +17,10 @@ export const CakeAPI = async () => {
       },
       // TODO: 아래는 테스트 params이며, 실제로는 동적으로 유저가 입력한 값을 요청해야함.
       params: {
-        email: 'test1234@gmail.com',
-        createdYear: 2024,
+        email: 'xldpsl1003@gmail.com',
+        createdYear: currentYear,
       },
     });
-
-    console.log(response);
     return response;
   } catch (error) {
     if (error.response && error.response.data) {

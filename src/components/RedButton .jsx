@@ -13,7 +13,12 @@ const Button = styled.button`
   box-shadow: 0.1rem 0.1rem 0.2rem 0 gray;
   font-family: "SejonghospitalBold", sans-serif;
   &:hover {
+    background-color: #ffdfdf;
+    cursor: pointer;
+  }
+  &:active {
     background-color: #facccc;
+    cursor: pointer;
   }
 `;
 
