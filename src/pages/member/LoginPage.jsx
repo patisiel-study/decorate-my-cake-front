@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {  StyledBorderedText, StyledSpanText  } from '../../styles/TextStyle';
+import { StyledBorderedText, StyledSpanText } from '../../styles/TextStyle';
 import { StyledPageContainer } from '../../styles/TitleLocation';
 import { Link } from 'react-router-dom';
 import LoginForm from '../../components/LoginForm';
