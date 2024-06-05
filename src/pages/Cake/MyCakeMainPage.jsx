@@ -10,6 +10,7 @@ import {
 import ToggleSwitch from "../../components/ToggleSwitch";
 import { RedButton, Icon } from "../../components/RedButton";
 import { CakeAPI } from "../../apis/CakeApi";
+import { Link } from "react-router-dom";
 
 export default function MyCakeMain() {
   const [nickname, setNickname] = useState("");
@@ -36,6 +37,8 @@ export default function MyCakeMain() {
           nickname,
         } = response.data.data;
 
+        localStorage.setItem("nickname", nickname);
+
         setMessage(message);
         setNickname(nickname);
         setCandleCount(candleCount.toString());
@@ -55,9 +58,11 @@ export default function MyCakeMain() {
         src="../../../img/cake1.png"
         style={{ display: cakeName ? "flex" : "none" }}
       />
-      <MakeCakeContainer style={{ display: cakeName ? "none" : "flex" }}>
-        <RedButton>케이크 만들기</RedButton>
-      </MakeCakeContainer>
+      <CreateCakeContainer style={{ display: cakeName ? "none" : "flex" }}>
+        <Link to="/createCake" style={{ textDecoration: "none" }}>
+          <RedButton>케이크 만들기</RedButton>
+        </Link>
+      </CreateCakeContainer>
       <CakeMessage style={{ display: cakeName ? "none" : "flex" }}>
         <StyledBorderedText fontSize="1.5rem">{message}</StyledBorderedText>
       </CakeMessage>
@@ -77,7 +82,7 @@ export default function MyCakeMain() {
           <StyledSpanText>{nickname}</StyledSpanText>님의 케이크
         </StyledBorderedText>
         <StyledText fontSize="1.2rem" fontColor="#c0aaa1">
-          📩{candleCount}개의 메시지가 도착했어요!
+          📩 {candleCount}개의 메시지가 도착했어요!
         </StyledText>
         <ToggleSwitch />
       </LeftContainer>
@@ -143,9 +148,12 @@ const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 1rem;
+  & > * {
+    margin-bottom: 0.4rem;
+  }
 `;
 
-const MakeCakeContainer = styled.div`
+const CreateCakeContainer = styled.div`
   position: absolute;
   bottom: 20rem;
   left: 50%;
