@@ -17,6 +17,7 @@ export default function MyCakeMain() {
   const [message, setMessage] = useState("");
   const [candleCount, setCandleCount] = useState("");
   const [cakeName, setCakeName] = useState(null);
+  const [dDay, setDDay] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,18 +32,18 @@ export default function MyCakeMain() {
           candleCount,
           candleCountPermission,
           candleCreatePermission,
-          candleList,
           candleViewPermission,
+          dday,
           message,
           nickname,
         } = response.data.data;
 
         localStorage.setItem("nickname", nickname);
-
         setMessage(message);
         setNickname(nickname);
-        setCandleCount(candleCount.toString());
+        setCandleCount(candleCount != null ? candleCount.toString() : "0");
         setCakeName(cakeName);
+        setDDay(dday);
       } catch (error) {
         console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
       }
@@ -58,7 +59,9 @@ export default function MyCakeMain() {
         src="../../../img/cake1.png"
         style={{ display: cakeName ? "flex" : "none" }}
       />
-      <CreateCakeContainer style={{ display: cakeName ? "none" : "flex" }}>
+      <CreateCakeContainer
+        style={{ display: dDay <= 30 && !cakeName ? "flex" : "none" }}
+      >
         <Link to="/createCake" style={{ textDecoration: "none" }}>
           <RedButton>케이크 만들기</RedButton>
         </Link>

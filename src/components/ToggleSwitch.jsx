@@ -6,7 +6,7 @@ const StyledToggleSwitchBackground = styled.div`
   align-items: center;
   width: max-content;
   height: 2rem;
-  margin-top: 1rem;
+  margin-top: 0.7rem;
   background-color: rgba(137, 137, 137, 0.5);
   border-radius: 2rem;
 `;
