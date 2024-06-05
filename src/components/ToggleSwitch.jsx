@@ -6,6 +6,7 @@ const StyledToggleSwitchBackground = styled.div`
   align-items: center;
   width: max-content;
   height: 2rem;
+  margin-top: 0.7rem;
   background-color: rgba(137, 137, 137, 0.5);
   border-radius: 2rem;
 `;
@@ -20,6 +21,9 @@ const StyledToggleSwitchButton = styled.button`
   background-color: #f87070;
   border: none;
   border-radius: 2rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledImg = styled.img`
@@ -31,10 +35,10 @@ export default function ToggleSwitch() {
   return (
     <StyledToggleSwitchBackground>
       <StyledToggleSwitchButton>
-        <StyledImg src="../../img/cake-icon.png" alt="케이크보기" />
+        <StyledImg src="../../img/cake.png" alt="케이크보기" />
       </StyledToggleSwitchButton>
       <StyledToggleSwitchButton>
-        <StyledImg src="../../img/candle-light-icon.png" alt="캔들보기" />
+        <StyledImg src="../../img/candle.png" alt="캔들보기" />
       </StyledToggleSwitchButton>
     </StyledToggleSwitchBackground>
   );

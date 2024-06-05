@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 const BorderedText = styled.p`
+  display: inline-block;
   margin: 0;
   font-size: ${({ fontSize }) => fontSize || "2rem"};
   font-weight: bolder;
-  color: #3d3d3d;
+  color: ${({ fontColor }) => fontColor || "#3d3d3d"};
 
   text-shadow: calc(3px * 1) 0 0 white,
     calc(3px * 0.9239) calc(3px * 0.3827) 0 white,
@@ -22,22 +23,30 @@ const BorderedText = styled.p`
 `;
 
 const Text = styled.p`
+  display: inline-block;
   margin: 0;
   font-size: ${({ fontSize }) => fontSize || "1rem"};
-  color: #3d3d3d;
-  text-align: center;
+  color: ${({ fontColor }) => fontColor || "#3d3d3d"};
 `;
 
 const SpanText = styled.span`
   color: #ff3b3b;
 `;
 
-const StyledBorderedText = ({ children, fontSize }) => {
-  return <BorderedText fontSize={fontSize}>{children}</BorderedText>;
+const StyledBorderedText = ({ children, fontSize, fontColor }) => {
+  return (
+    <BorderedText fontSize={fontSize} fontColor={fontColor}>
+      {children}
+    </BorderedText>
+  );
 };
 
-const StyledText = ({ children, fontSize }) => {
-  return <Text fontSize={fontSize}>{children}</Text>;
+const StyledText = ({ children, fontSize, fontColor }) => {
+  return (
+    <Text fontSize={fontSize} fontColor={fontColor}>
+      {children}
+    </Text>
+  );
 };
 
 const StyledSpanText = ({ children }) => {

@@ -1,12 +1,12 @@
 import axios from "axios";
 
-export const signUpAPI = async (newUserData) => {
+export const FriendListAPI = async () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   try {
-    const response = await axios.post(
-      `${SERVER_URL}/member/signup`,
-      newUserData
-    );
+    const response = await axios.get(`${SERVER_URL}/`, {
+      email: email,
+      password: password,
+    });
     return response.data;
   } catch (error) {
     throw error.response.data;

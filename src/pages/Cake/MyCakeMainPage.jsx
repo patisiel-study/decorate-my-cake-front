@@ -2,15 +2,22 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import StyledBackgroundIvory from "../../styles/BackgroundStyle";
 import Header from "../../components/Header";
-import { StyledBorderedText, StyledSpanText } from "../../styles/TextStyle";
-import { RedButton, Icon } from "../../components/RedButton ";
+import {
+  StyledBorderedText,
+  StyledText,
+  StyledSpanText,
+} from "../../styles/TextStyle";
+import ToggleSwitch from "../../components/ToggleSwitch";
+import { RedButton, Icon } from "../../components/RedButton";
 import { CakeAPI } from "../../apis/CakeApi";
+import { Link } from "react-router-dom";
 
 export default function MyCakeMain() {
   const [nickname, setNickname] = useState("");
   const [message, setMessage] = useState("");
   const [candleCount, setCandleCount] = useState("");
   const [cakeName, setCakeName] = useState(null);
+  const [dDay, setDDay] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,16 +32,18 @@ export default function MyCakeMain() {
           candleCount,
           candleCountPermission,
           candleCreatePermission,
-          candleList,
           candleViewPermission,
+          dday,
           message,
           nickname,
         } = response.data.data;
 
+        localStorage.setItem("nickname", nickname);
         setMessage(message);
         setNickname(nickname);
-        setCandleCount(candleCount.toString());
+        setCandleCount(candleCount != null ? candleCount.toString() : "0");
         setCakeName(cakeName);
+        setDDay(dday);
       } catch (error) {
         console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
       }
@@ -50,10 +59,17 @@ export default function MyCakeMain() {
         src="../../../img/cake1.png"
         style={{ display: cakeName ? "flex" : "none" }}
       />
+      <CreateCakeContainer
+        style={{ display: dDay <= 30 && !cakeName ? "flex" : "none" }}
+      >
+        <Link to="/createCake" style={{ textDecoration: "none" }}>
+          <RedButton>케이크 만들기</RedButton>
+        </Link>
+      </CreateCakeContainer>
       <CakeMessage style={{ display: cakeName ? "none" : "flex" }}>
         <StyledBorderedText fontSize="1.5rem">{message}</StyledBorderedText>
       </CakeMessage>
-      <RedButtonContainer>
+      <RedButtonContainer style={{ display: cakeName ? "flex" : "none" }}>
         <RedButton>
           <Icon src="../../../img/share.png" />
           초대장 보내기
@@ -68,11 +84,10 @@ export default function MyCakeMain() {
         <StyledBorderedText fontSize="1.5rem">
           <StyledSpanText>{nickname}</StyledSpanText>님의 케이크
         </StyledBorderedText>
-        <StyledBorderedText fontSize="1.2rem">
-          📩
-          <StyledSpanText>{candleCount}</StyledSpanText>개의 메시지가
-          도착했어요!
-        </StyledBorderedText>
+        <StyledText fontSize="1.2rem" fontColor="#c0aaa1">
+          📩 {candleCount}개의 메시지가 도착했어요!
+        </StyledText>
+        <ToggleSwitch />
       </LeftContainer>
     </div>
   );
@@ -133,8 +148,18 @@ const CakeMessage = styled.div`
 `;
 
 const LeftContainer = styled.div`
-  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
   & > * {
-    margin-top: 1rem; // 모든 자식 컴포넌트에 10px 마진 적용
+    margin-bottom: 0.4rem;
   }
+`;
+
+const CreateCakeContainer = styled.div`
+  position: absolute;
+  bottom: 20rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
 `;

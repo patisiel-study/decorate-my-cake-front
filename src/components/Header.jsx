@@ -5,19 +5,14 @@ import {
   StyledText,
   StyledSpanText,
 } from "../styles/TextStyle";
+import FriendPage from "../pages/friend/FriendPage";
 
 const Header = ({ profileImg }) => {
-  const [isFriendActive, setIsFriendActive] = useState(false);
   const [isSettingActive, setIsSettingActive] = useState(false);
-
-  const toggleFriendActive = () => {
-    setIsFriendActive(!isFriendActive);
-    setIsSettingActive(false);
-  };
+  const [friendPage, setFriendPage] = useState(false);
 
   const toggleSettingActive = () => {
     setIsSettingActive(!isSettingActive);
-    setIsFriendActive(false);
   };
 
   return (
@@ -33,20 +28,9 @@ const Header = ({ profileImg }) => {
               className="friend"
               src="/img/friendWhite.png"
               alt="친구"
-              onClick={toggleFriendActive}
+              onClick={() => setFriendPage(!friendPage)}
             />
-            {isFriendActive && (
-              <FriendTapsContainer isVisible={isFriendActive}>
-                <FriendTaps className="friendTaps">
-                  <FriendTap className="friendList">친구목록</FriendTap>
-                  <FriendTap className="friendBirthday">친구생일</FriendTap>
-                  <FriendTap className="friendRequest">친구요청</FriendTap>
-                </FriendTaps>
-                <FriendContents>
-                  <div>친구목록입니다.</div>
-                </FriendContents>
-              </FriendTapsContainer>
-            )}
+            {friendPage === true && <FriendPage />}
           </InnerContainer>
           <InnerContainer className="settingContainer">
             <Profile
@@ -150,12 +134,6 @@ const Icon = styled.img`
   }
 `;
 
-const FriendContents = styled.div`
-  width: 30rem;
-  height: 40rem;
-  background-color: white;
-`;
-
 const InnerContainer = styled.div`
   position: relative;
 `;
@@ -185,21 +163,6 @@ const Profile = styled.img`
       display: flex;
     }
   }
-`;
-
-const FriendTaps = styled.div`
-  display: flex;
-`;
-
-const FriendTap = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 8rem;
-  height: 2.5rem;
-  background-color: white;
-  border-radius: 1rem;
-  border: none;
 `;
 
 const SettingInnerContainer = styled.div`
