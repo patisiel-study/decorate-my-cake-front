@@ -114,7 +114,8 @@ const LeftContainer = styled.div`
 `;
 
 const BackContainer = styled.div`
-  display: inline-block;
+display: flex;
+align-items: center;
   background-color: yellow;
   &:hover {
     cursor: pointer;

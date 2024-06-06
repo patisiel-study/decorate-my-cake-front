@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import StyledBackgroundIvory from "../../styles/BackgroundStyle";
 import Header from "../../components/Header";
+import CakeSetting from "../../components/CakeSetting";
 import { RedButton } from "../../components/RedButton";
 import {
   StyledBorderedText,
@@ -33,12 +34,15 @@ const SetCakePage = () => {
   return (
     <div>
       <StyledBackgroundIvory />
-      <Cake src={`../../../img/${cakeName}.png`} />
       <Header />
       <RedButtonContainer>
         <RedButton onClick={handleBackClick}>이전</RedButton>
-        <RedButton>다음</RedButton>
+        <RedButton>완료</RedButton>
       </RedButtonContainer>
+      <Container>
+        <Cake src={`../../../img/${cakeName}.png`} />
+        <CakeSetting />
+      </Container>
       <LeftContainer>
         <StyledBorderedText fontSize="1.5rem">
           <StyledSpanText>{nickname}</StyledSpanText>님의 케이크
@@ -59,16 +63,12 @@ export default SetCakePage;
 
 const Cake = styled.img`
   display: flex;
-  position: absolute;
-  bottom: 12rem;
-  left: 30%;
-  transform: translateX(-50%);
   width: 14rem;
   height: 14rem;
   margin: 0 1.5rem;
   padding: 5rem;
   background-color: white;
-  border-radius: 25%;
+  border-radius: 3rem;
 `;
 
 const RedButtonContainer = styled.div`
@@ -81,6 +81,14 @@ const RedButtonContainer = styled.div`
   width: 23rem;
 `;
 
+const Container = styled.div`
+  display: flex;
+  position: absolute;
+  bottom: 12rem;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,7 +99,8 @@ const LeftContainer = styled.div`
 `;
 
 const BackContainer = styled.div`
-  display: inline-block;
+  display: flex;
+  align-items: center;
   background-color: yellow;
   &:hover {
     cursor: pointer;
@@ -102,3 +111,5 @@ const BackIcon = styled.img`
   width: 1.2rem;
   height: 1.2rem;
 `;
+
+const RightContainer = styled.div``;

@@ -9,7 +9,7 @@ import {
 } from "../../styles/TextStyle";
 import ToggleSwitch from "../../components/ToggleSwitch";
 import { RedButton, Icon } from "../../components/RedButton";
-import { CakeAPI } from "../../apis/CakeApi";
+import { CakeViewAPI } from "../../apis/CakeViewApi";
 import { Link } from "react-router-dom";
 
 export default function MyCakeMain() {
@@ -22,7 +22,7 @@ export default function MyCakeMain() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await CakeAPI();
+        const response = await CakeViewAPI();
         console.log(response);
         alert(response.data.message);
         const {
