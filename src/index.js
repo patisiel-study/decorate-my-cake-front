@@ -5,7 +5,8 @@ import "../src/pages/index.css";
 import LoginPage from "./pages/member/LoginPage";
 import SignUpPage from "./pages/member/SignUpPage";
 import MyCakeMainPage from "./pages/Cake/MyCakeMainPage";
-import CreateCakePage from "./pages/Cake/CreateCakePage";
+import SelectCakePage from "./pages/Cake/SelectCakePage";
+import SetCakePage from "./pages/Cake/SetCakePage";
 import FriendPage from "./pages/friend/FriendPage";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,7 +18,8 @@ root.render(
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/myCakeMain" element={<MyCakeMainPage />} />
-        <Route path="/createCake" element={<CreateCakePage />} />
+        <Route path="/selectCake" element={<SelectCakePage />} />
+        <Route path="/setCake" element={<SetCakePage />} />
         <Route path="/friend" element={<FriendPage />} />
       </Routes>
     </BrowserRouter>

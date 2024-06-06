@@ -1,10 +1,13 @@
 import axios from "axios";
 
-export const CakeAPI = async () => {
+export const CakeViewAPI = async () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const API_TOKEN = localStorage.getItem("accessToken");
   const currentTime = new Date();
   const currentYear = currentTime.getFullYear();
+  // const futureTime = new Date();
+  // futureTime.setDate(futureTime.getDate() + 30);
+  // const futureYear = futureTime.getFullYear();
 
   if (!SERVER_URL) {
     throw new Error("SERVER_URL is not defined");
