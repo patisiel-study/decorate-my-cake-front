@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import StyledBackgroundIvory from "../../styles/BackgroundStyle";
 import Header from "../../components/Header";
@@ -8,15 +8,15 @@ import {
   StyledText,
   StyledSpanText,
 } from "../../styles/TextStyle";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateCakePage = () => {
   const nickname = localStorage.getItem("nickname");
   const [cakeName, setCakeName] = useState(null);
   const navigate = useNavigate();
 
-  const handleBackClick = () => {
-    window.history.back();
+  const handleHomeClick = () => {
+    navigate("/myCakeMain");
   };
 
   const handleCakeClick = (cake) => {
@@ -25,7 +25,7 @@ const CreateCakePage = () => {
 
   const handleNextClick = () => {
     if (cakeName) {
-      navigate("/next-page", { state: { cakeName } });
+      navigate("/setCake", { state: { cakeName } });
     }
   };
 
@@ -34,16 +34,19 @@ const CreateCakePage = () => {
       <StyledBackgroundIvory />
       <CakeContainer>
         <Cake
-          src="../../../img/cake1.png"
-          onClick={() => handleCakeClick("cake1")}
+          src="../../../img/whiteCake.png"
+          onClick={() => handleCakeClick("whiteCake")}
+          isSelected={cakeName === "whiteCake"}
         />
         <Cake
-          src="../../../img/cake2.png"
-          onClick={() => handleCakeClick("cake2")}
+          src="../../../img/redCake.png"
+          onClick={() => handleCakeClick("redCake")}
+          isSelected={cakeName === "redCake"}
         />
         <Cake
-          src="../../../img/cake3.png"
-          onClick={() => handleCakeClick("cake3")}
+          src="../../../img/brownCake.png"
+          onClick={() => handleCakeClick("brownCake")}
+          isSelected={cakeName === "brownCake"}
         />
       </CakeContainer>
       <Header />
@@ -54,7 +57,7 @@ const CreateCakePage = () => {
         <StyledBorderedText fontSize="1.5rem">
           <StyledSpanText>{nickname}</StyledSpanText>님의 케이크
         </StyledBorderedText>
-        <BackContainer onClick={handleBackClick}>
+        <BackContainer onClick={handleHomeClick}>
           <BackIcon on src="../../img/back.png" alt="이전으로 돌아가기" />
           <StyledText>홈으로</StyledText>
         </BackContainer>
@@ -69,7 +72,7 @@ export default CreateCakePage;
 const CakeContainer = styled.div`
   display: flex;
   position: absolute;
-  bottom: 15rem;
+  bottom: 13rem;
   left: 50%;
   transform: translateX(-50%);
 `;
@@ -80,6 +83,10 @@ const Cake = styled.img`
   height: 14rem;
   margin: 0 1.5rem;
   padding: 3rem;
+  background-color: ${({ isSelected }) =>
+    isSelected ? "#ffdfdf" : "transparent"};
+  border-radius: ${({ isSelected }) => (isSelected ? "25%" : "0")};
+  cursor: ${({ isSelected }) => (isSelected ? "default" : "pointer")};
 
   &:hover {
     cursor: pointer;
@@ -92,7 +99,7 @@ const RedButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   position: absolute;
-  bottom: 8rem;
+  bottom: 6rem;
   left: 50%;
   transform: translateX(-50%);
 `;
