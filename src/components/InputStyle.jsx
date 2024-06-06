@@ -22,11 +22,10 @@ const Input = styled.input`
   }
 `;
 
-export default function StyledInput ({ imagePath, ...props }) {
+export default function StyledInput({ imagePath, ...props }) {
   return (
     <InputContainer>
       <Input {...props} imagepath={imagePath} />
     </InputContainer>
   );
-};
-
+}

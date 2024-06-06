@@ -5,7 +5,7 @@ import {
   StyledText,
   StyledSpanText,
 } from "../styles/TextStyle";
-import FriendPage from "../pages/friend/FriendPage"
+import FriendPage from "../pages/friend/FriendPage";
 
 const Header = ({ profileImg }) => {
   const [isSettingActive, setIsSettingActive] = useState(false);
@@ -28,9 +28,9 @@ const Header = ({ profileImg }) => {
               className="friend"
               src="/img/friendWhite.png"
               alt="친구"
-              onClick={() => setFriendPage(!friendPage)} 
+              onClick={() => setFriendPage(!friendPage)}
             />
-            {friendPage === true && <FriendPage/>}
+            {friendPage === true && <FriendPage />}
           </InnerContainer>
           <InnerContainer className="settingContainer">
             <Profile
@@ -134,7 +134,6 @@ const Icon = styled.img`
   }
 `;
 
-
 const InnerContainer = styled.div`
   position: relative;
 `;
@@ -165,7 +164,6 @@ const Profile = styled.img`
     }
   }
 `;
-
 
 const SettingInnerContainer = styled.div`
   display: flex;
