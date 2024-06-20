@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import StyledBackgroundIvory from "../../styles/BackgroundStyle";
 import Header from "../../components/Header";
@@ -9,6 +9,7 @@ import {
   StyledText,
   StyledSpanText,
 } from "../../styles/TextStyle";
+import { CakeCreateAPI } from "../../apis/CakeCreateApi";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const SetCakePage = () => {
@@ -16,7 +17,29 @@ const SetCakePage = () => {
   const location = useLocation();
   const nickname = localStorage.getItem("nickname");
   const cakeName = location.state?.cakeName;
+  const [candleCreatePermission, setCandleCreatePermission] = useState("");
+  const [candleViewPermission, setCandleViewPermission] = useState("");
+  const [candleCountPermission, setCandleCountPermission] = useState("");
 
+  const handlePermissionChange = (index, permission) => {
+    switch (index) {
+      case 0:
+        setCandleCreatePermission(permission);
+        console.log("candleCreatePermission:", permission);
+        break;
+      case 1:
+        setCandleViewPermission(permission);
+        console.log("candleViewPermission:", permission);
+        break;
+      case 2:
+        setCandleCountPermission(permission);
+        console.log("candleCountPermission:", permission);
+        break;
+      default:
+        console.log("Value is unknown");
+        break;
+    }
+  };
   const handleHomeClick = () => {
     navigate("/myCakeMain");
   };
@@ -25,9 +48,24 @@ const SetCakePage = () => {
     window.history.back();
   };
 
-  const handleNextClick = () => {
-    if (cakeName) {
-      navigate("/myCakeMain", { state: { cakeName } });
+  const handleNextClick = async () => {
+    console.log(`cakeName: ${cakeName}
+candleCreatePermission: ${candleCreatePermission}
+candleViewPermission: ${candleViewPermission}
+candleCountPermission: ${candleCountPermission}`);
+
+    try {
+      await CakeCreateAPI({
+        cakeName,
+        candleCreatePermission,
+        candleViewPermission,
+        candleCountPermission,
+      });
+      alert("케이크 생성이 완료되었습니다.");
+      navigate("/myCakeMain");
+    } catch (error) {
+      alert(error.message);
+      console.error(error);
     }
   };
 
@@ -37,11 +75,16 @@ const SetCakePage = () => {
       <Header />
       <RedButtonContainer>
         <RedButton onClick={handleBackClick}>이전</RedButton>
-        <RedButton>완료</RedButton>
+        <RedButton onClick={handleNextClick}>완료</RedButton>
       </RedButtonContainer>
       <Container>
         <Cake src={`../../../img/${cakeName}.png`} />
-        <CakeSetting />
+        <CakeSetting
+          candleCreatePermission={candleCreatePermission}
+          candleViewPermission={candleViewPermission}
+          candleCountPermission={candleCountPermission}
+          onPermissionChange={handlePermissionChange}
+        />
       </Container>
       <LeftContainer>
         <StyledBorderedText fontSize="1.5rem">
@@ -111,5 +154,3 @@ const BackIcon = styled.img`
   width: 1.2rem;
   height: 1.2rem;
 `;
-
-const RightContainer = styled.div``;

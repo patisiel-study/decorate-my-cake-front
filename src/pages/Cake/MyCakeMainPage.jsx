@@ -10,6 +10,7 @@ import {
 import ToggleSwitch from "../../components/ToggleSwitch";
 import { RedButton, Icon } from "../../components/RedButton";
 import { CakeViewAPI } from "../../apis/CakeViewApi";
+import { CakeDeleteAPI } from "../../apis/CakeDeleteApi";
 import { Link } from "react-router-dom";
 
 export default function MyCakeMain() {
@@ -51,12 +52,24 @@ export default function MyCakeMain() {
     fetchData();
   }, []);
 
+  const handleDeleteCake = async () => {
+    const cakeCreatedYear = 2024;
+    try {
+      const response = await CakeDeleteAPI(cakeCreatedYear);
+      console.log(response);
+      alert("케이크가 삭제되었습니다."); // 삭제 성공 시 메시지
+    } catch (error) {
+      console.error("케이크 삭제 중 오류가 발생했습니다.", error);
+      alert("케이크 삭제 중 오류가 발생했습니다."); // 삭제 실패 시 메시지
+    }
+  };
+
   return (
     <div>
       <StyledBackgroundIvory />
       <Plate src="../../../img/plate.png" />
       <Cake
-        src="../../../img/cake1.png"
+        src={`../../../img/${cakeName}.png`}
         style={{ display: cakeName ? "flex" : "none" }}
       />
       <CreateCakeContainer
@@ -70,10 +83,7 @@ export default function MyCakeMain() {
         <StyledBorderedText fontSize="1.5rem">{message}</StyledBorderedText>
       </CakeMessage>
       <RedButtonContainer style={{ display: cakeName ? "flex" : "none" }}>
-        <RedButton>
-          <Icon src="../../../img/share.png" />
-          초대장 보내기
-        </RedButton>
+        <RedButton onClick={handleDeleteCake}>케이크 삭제</RedButton>
         <RedButton>
           <Icon src="../../../img/cake.png" />
           케이크 설정
