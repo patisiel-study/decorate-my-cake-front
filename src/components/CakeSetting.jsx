@@ -1,8 +1,18 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import { StyledText } from "../styles/TextStyle";
 
-const CakeSetting = () => {
+const CakeSetting = ({
+  candleCreatePermission,
+  candleViewPermission,
+  candleCountPermission,
+  onPermissionChange,
+}) => {
   const settings = ["메시지 작성 범위", "받은 메시지 내용", "받은 메시지 개수"];
+
+  const handleIconClick = (index, permission) => {
+    onPermissionChange(index, permission);
+  };
 
   return (
     <Container>
@@ -13,34 +23,89 @@ const CakeSetting = () => {
         <StyledText fontSize="1rem">전체 공개</StyledText>
       </PrivacyOptions>
       {settings.map((setting, index) => (
-        <Setting key={index} label={setting} index={index} />
+        <Setting
+          key={index}
+          label={setting}
+          index={index}
+          candleCreatePermission={candleCreatePermission}
+          candleViewPermission={candleViewPermission}
+          candleCountPermission={candleCountPermission}
+          onIconClick={handleIconClick}
+        />
       ))}
     </Container>
   );
 };
 
-const Setting = ({ label, index }) => (
-  <SettingContainer>
-    <LeftContainer>
-      <StyledText fontSize="1.2rem">{label}</StyledText>
-    </LeftContainer>
-    <RightContainer>
-      {index === 0 ? (
-        <>
-          <IconSpacer />
-          <Icon src="../../../img/friendBlack.png" />
-          <Icon src="../../../img/anyone.png" />
-        </>
-      ) : (
-        <>
-          <Icon src="../../../img/onlyMe.png" />
-          <Icon src="../../../img/friendBlack.png" />
-          <Icon src="../../../img/anyone.png" />
-        </>
-      )}
-    </RightContainer>
-  </SettingContainer>
-);
+const Setting = ({
+  label,
+  index,
+  candleCreatePermission,
+  candleViewPermission,
+  candleCountPermission,
+  onIconClick,
+}) => {
+  return (
+    <SettingContainer>
+      <LeftContainer>
+        <StyledText fontSize="1.2rem">{label}</StyledText>
+      </LeftContainer>
+      <RightContainer>
+        {index === 0 ? (
+          <>
+            <IconSpacer />
+            <Icon
+              src="../../../img/friendBlack.png"
+              isSelected={candleCreatePermission === "ONLY_FRIENDS"}
+              onClick={() => onIconClick(index, "ONLY_FRIENDS")}
+            />
+            <Icon
+              src="../../../img/anyone.png"
+              isSelected={candleCreatePermission === "ANYONE"}
+              onClick={() => onIconClick(index, "ANYONE")}
+            />
+          </>
+        ) : index === 1 ? (
+          <>
+            <Icon
+              src="../../../img/onlyMe.png"
+              isSelected={candleViewPermission === "ONLY_ME"}
+              onClick={() => onIconClick(index, "ONLY_ME")}
+            />
+            <Icon
+              src="../../../img/friendBlack.png"
+              isSelected={candleViewPermission === "ONLY_FRIENDS"}
+              onClick={() => onIconClick(index, "ONLY_FRIENDS")}
+            />
+            <Icon
+              src="../../../img/anyone.png"
+              isSelected={candleViewPermission === "ANYONE"}
+              onClick={() => onIconClick(index, "ANYONE")}
+            />
+          </>
+        ) : index === 2 ? (
+          <>
+            <Icon
+              src="../../../img/onlyMe.png"
+              isSelected={candleCountPermission === "ONLY_ME"}
+              onClick={() => onIconClick(index, "ONLY_ME")}
+            />
+            <Icon
+              src="../../../img/friendBlack.png"
+              isSelected={candleCountPermission === "ONLY_FRIENDS"}
+              onClick={() => onIconClick(index, "ONLY_FRIENDS")}
+            />
+            <Icon
+              src="../../../img/anyone.png"
+              isSelected={candleCountPermission === "ANYONE"}
+              onClick={() => onIconClick(index, "ANYONE")}
+            />
+          </>
+        ) : null}
+      </RightContainer>
+    </SettingContainer>
+  );
+};
 
 export default CakeSetting;
 
@@ -96,11 +161,13 @@ const Icon = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   padding: 0.8rem;
+  border-radius: 30%;
+  background-color: ${({ isSelected }) =>
+    isSelected ? "#ffdfdf" : "transparent"};
 
   &:hover {
     cursor: pointer;
     background-color: #ffdfdf;
-    border-radius: 50%;
   }
 `;
 
