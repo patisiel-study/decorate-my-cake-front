@@ -1,47 +1,48 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import StyledBackgroundIvory from "../../styles/BackgroundStyle";
-import Header from "../../components/Header";
-import CakeSetting from "../../components/CakeSetting";
-import { RedButton } from "../../components/RedButton";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import StyledBackgroundIvory from '../../styles/BackgroundStyle';
+import Header from '../../components/Header';
+import CakeSetting from '../../components/CakeSetting';
+import { RedButton } from '../../components/RedButton';
 import {
   StyledBorderedText,
   StyledText,
   StyledSpanText,
-} from "../../styles/TextStyle";
-import { CakeCreateAPI } from "../../apis/CakeCreateApi";
-import { useNavigate, useLocation } from "react-router-dom";
+} from '../../styles/TextStyle';
+import { CakeCreateAPI } from '../../apis/CakeCreateApi';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const SetCakePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const nickname = localStorage.getItem("nickname");
+  const nickname = localStorage.getItem('nickname');
   const cakeName = location.state?.cakeName;
-  const [candleCreatePermission, setCandleCreatePermission] = useState("");
-  const [candleViewPermission, setCandleViewPermission] = useState("");
-  const [candleCountPermission, setCandleCountPermission] = useState("");
+  const [candleCreatePermission, setCandleCreatePermission] = useState('');
+  const [candleViewPermission, setCandleViewPermission] = useState('');
+  const [candleCountPermission, setCandleCountPermission] = useState('');
+  const [cakeUrl, setCakeUrl] = useState('');
 
   const handlePermissionChange = (index, permission) => {
     switch (index) {
       case 0:
         setCandleCreatePermission(permission);
-        console.log("candleCreatePermission:", permission);
+        console.log('candleCreatePermission:', permission);
         break;
       case 1:
         setCandleViewPermission(permission);
-        console.log("candleViewPermission:", permission);
+        console.log('candleViewPermission:', permission);
         break;
       case 2:
         setCandleCountPermission(permission);
-        console.log("candleCountPermission:", permission);
+        console.log('candleCountPermission:', permission);
         break;
       default:
-        console.log("Value is unknown");
+        console.log('Value is unknown');
         break;
     }
   };
   const handleHomeClick = () => {
-    navigate("/myCakeMain");
+    navigate('/myCakeMain');
   };
 
   const handleBackClick = () => {
@@ -54,15 +55,25 @@ candleCreatePermission: ${candleCreatePermission}
 candleViewPermission: ${candleViewPermission}
 candleCountPermission: ${candleCountPermission}`);
 
+    // 타입 출력
+    console.log('Type of cakeName:', typeof cakeName);
+    console.log(
+      'Type of candleCreatePermission:',
+      typeof candleCreatePermission
+    );
+    console.log('Type of candleViewPermission:', typeof candleViewPermission);
+    console.log('Type of candleCountPermission:', typeof candleCountPermission);
+
     try {
-      await CakeCreateAPI({
+      const response = await CakeCreateAPI(
         cakeName,
         candleCreatePermission,
         candleViewPermission,
-        candleCountPermission,
-      });
-      alert("케이크 생성이 완료되었습니다.");
-      navigate("/myCakeMain");
+        candleCountPermission
+      );
+      alert('케이크 생성이 완료되었습니다.');
+      setCakeUrl(response.data.cakeUrl);
+      navigate('/myCakeMain');
     } catch (error) {
       alert(error.message);
       console.error(error);

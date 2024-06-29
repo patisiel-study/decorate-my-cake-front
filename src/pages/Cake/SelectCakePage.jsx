@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import StyledBackgroundIvory from "../../styles/BackgroundStyle";
-import Header from "../../components/Header";
-import { RedButton } from "../../components/RedButton";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import StyledBackgroundIvory from '../../styles/BackgroundStyle';
+import Header from '../../components/Header';
+import { RedButton } from '../../components/RedButton';
 import {
   StyledBorderedText,
   StyledText,
   StyledSpanText,
-} from "../../styles/TextStyle";
-import { useNavigate } from "react-router-dom";
+} from '../../styles/TextStyle';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCakePage = () => {
-  const nickname = localStorage.getItem("nickname");
+  const nickname = localStorage.getItem('nickname');
   const [cakeName, setCakeName] = useState(null);
   const navigate = useNavigate();
 
   const handleHomeClick = () => {
-    navigate("/myCakeMain");
+    navigate('/myCakeMain');
   };
 
   const handleCakeClick = (cake) => {
@@ -25,7 +25,7 @@ const CreateCakePage = () => {
 
   const handleNextClick = () => {
     if (cakeName) {
-      navigate("/setCake", { state: { cakeName } });
+      navigate('/setCake', { state: { cakeName } });
     }
   };
 
@@ -34,19 +34,19 @@ const CreateCakePage = () => {
       <StyledBackgroundIvory />
       <CakeContainer>
         <Cake
-          src="../../../img/whiteCake.png"
-          onClick={() => handleCakeClick("whiteCake")}
-          isSelected={cakeName === "whiteCake"}
+          src="../../../img/WHITE_CAKE.png"
+          onClick={() => handleCakeClick('WHITE_CAKE')}
+          isSelected={cakeName === 'WHITE_CAKE'}
         />
         <Cake
-          src="../../../img/redCake.png"
-          onClick={() => handleCakeClick("redCake")}
-          isSelected={cakeName === "redCake"}
+          src="../../../img/RED_CAKE.png"
+          onClick={() => handleCakeClick('RED_CAKE')}
+          isSelected={cakeName === 'RED_CAKE'}
         />
         <Cake
-          src="../../../img/brownCake.png"
-          onClick={() => handleCakeClick("brownCake")}
-          isSelected={cakeName === "brownCake"}
+          src="../../../img/BROWN_CAKE.png"
+          onClick={() => handleCakeClick('BROWN_CAKE')}
+          isSelected={cakeName === 'BROWN_CAKE'}
         />
       </CakeContainer>
       <Header />
@@ -84,9 +84,9 @@ const Cake = styled.img`
   margin: 0 1.5rem;
   padding: 3rem;
   background-color: ${({ isSelected }) =>
-    isSelected ? "#ffdfdf" : "transparent"};
-  border-radius: ${({ isSelected }) => (isSelected ? "25%" : "0")};
-  cursor: ${({ isSelected }) => (isSelected ? "default" : "pointer")};
+    isSelected ? '#ffdfdf' : 'transparent'};
+  border-radius: ${({ isSelected }) => (isSelected ? '25%' : '0')};
+  cursor: ${({ isSelected }) => (isSelected ? 'default' : 'pointer')};
 
   &:hover {
     cursor: pointer;
@@ -114,8 +114,8 @@ const LeftContainer = styled.div`
 `;
 
 const BackContainer = styled.div`
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
   background-color: yellow;
   &:hover {
     cursor: pointer;

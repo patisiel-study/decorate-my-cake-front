@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import StyledBackgroundIvory from "../../styles/BackgroundStyle";
-import Header from "../../components/Header";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import StyledBackgroundIvory from '../../styles/BackgroundStyle';
+import Header from '../../components/Header';
 import {
   StyledBorderedText,
   StyledText,
   StyledSpanText,
-} from "../../styles/TextStyle";
-import ToggleSwitch from "../../components/ToggleSwitch";
-import { RedButton, Icon } from "../../components/RedButton";
-import { CakeViewAPI } from "../../apis/CakeViewApi";
-import { CakeDeleteAPI } from "../../apis/CakeDeleteApi";
-import { Link } from "react-router-dom";
+} from '../../styles/TextStyle';
+import ToggleSwitch from '../../components/ToggleSwitch';
+import { RedButton, Icon } from '../../components/RedButton';
+import { CakeViewAPI } from '../../apis/CakeViewApi';
+import { Link } from 'react-router-dom';
 
 export default function MyCakeMain() {
-  const [nickname, setNickname] = useState("");
-  const [message, setMessage] = useState("");
-  const [candleCount, setCandleCount] = useState("");
+  const [nickname, setNickname] = useState('');
+  const [message, setMessage] = useState('');
+  const [candleCount, setCandleCount] = useState('');
   const [cakeName, setCakeName] = useState(null);
+  const [cakeUrl, setCakeUrl] = useState(null);
   const [dDay, setDDay] = useState(null);
 
   useEffect(() => {
@@ -36,54 +36,41 @@ export default function MyCakeMain() {
           candleViewPermission,
           dday,
           message,
+          cakeUrl,
           nickname,
         } = response.data.data;
 
-        localStorage.setItem("nickname", nickname);
+        localStorage.setItem('nickname', nickname);
         setMessage(message);
         setNickname(nickname);
-        setCandleCount(candleCount != null ? candleCount.toString() : "0");
+        setCakeUrl(cakeUrl);
+        setCandleCount(candleCount != null ? candleCount.toString() : '0');
         setCakeName(cakeName);
         setDDay(dday);
       } catch (error) {
-        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+        console.error('데이터를 가져오는 중 오류가 발생했습니다.', error);
       }
     };
     fetchData();
   }, []);
 
-  const handleDeleteCake = async () => {
-    const cakeCreatedYear = 2024;
-    try {
-      const response = await CakeDeleteAPI(cakeCreatedYear);
-      console.log(response);
-      alert("케이크가 삭제되었습니다."); // 삭제 성공 시 메시지
-    } catch (error) {
-      console.error("케이크 삭제 중 오류가 발생했습니다.", error);
-      alert("케이크 삭제 중 오류가 발생했습니다."); // 삭제 실패 시 메시지
-    }
-  };
-
   return (
     <div>
       <StyledBackgroundIvory />
       <Plate src="../../../img/plate.png" />
-      <Cake
-        src={`../../../img/${cakeName}.png`}
-        style={{ display: cakeName ? "flex" : "none" }}
-      />
+      <Cake src={cakeUrl} style={{ display: cakeUrl ? 'flex' : 'none' }} />
       <CreateCakeContainer
-        style={{ display: dDay <= 30 && !cakeName ? "flex" : "none" }}
+        style={{ display: dDay <= 30 && !cakeUrl ? 'flex' : 'none' }}
       >
-        <Link to="/selectCake" style={{ textDecoration: "none" }}>
+        <Link to="/selectCake" style={{ textDecoration: 'none' }}>
           <RedButton>케이크 만들기</RedButton>
         </Link>
       </CreateCakeContainer>
-      <CakeMessage style={{ display: cakeName ? "none" : "flex" }}>
+      <CakeMessage style={{ display: cakeUrl ? 'none' : 'flex' }}>
         <StyledBorderedText fontSize="1.5rem">{message}</StyledBorderedText>
       </CakeMessage>
-      <RedButtonContainer style={{ display: cakeName ? "flex" : "none" }}>
-        <RedButton onClick={handleDeleteCake}>케이크 삭제</RedButton>
+      <RedButtonContainer style={{ display: cakeUrl ? 'flex' : 'none' }}>
+        <RedButton>케이크 삭제</RedButton>
         <RedButton>
           <Icon src="../../../img/cake.png" />
           케이크 설정
@@ -141,7 +128,7 @@ const PageButton = styled.button`
   color: #3d3d3d;
   border: none;
   border-radius: 50%;
-  font-family: "SejonghospitalBold", sans-serif;
+  font-family: 'SejonghospitalBold', sans-serif;
   &:hover {
     background-color: #facccc;
   }
